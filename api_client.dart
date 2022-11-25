@@ -39,21 +39,17 @@ class ApiClient extends GetxService {
     }
     updateHeader(
       token, _addressModel == null ? null : _addressModel.zoneIds,
-      sharedPreferences.getString(AppConstants.LANGUAGE_CODE), _moduleID, _addressModel == null ? null : _addressModel.latitude,
-        _addressModel == null ? null : _addressModel.longitude
+      sharedPreferences.getString(AppConstants.LANGUAGE_CODE), _moduleID,
     );
   }
 
-  void updateHeader(String token, List<int> zoneIDs, String languageCode, int moduleID, String latitude, String longitude) {
+  void updateHeader(String token, List<int> zoneIDs, String languageCode, int moduleID) {
     Map<String, String> _header = {
       'Content-Type': 'application/json; charset=UTF-8',
       AppConstants.ZONE_ID: zoneIDs != null ? jsonEncode(zoneIDs) : null,
       AppConstants.LOCALIZATION_KEY: languageCode ?? AppConstants.languages[0].languageCode,
-      AppConstants.LATITUDE: latitude != null ? jsonEncode(latitude) : null,
-      AppConstants.LONGITUDE: longitude != null ? jsonEncode(longitude) : null,
       'Authorization': 'Bearer $token'
     };
-    print('-----> module id: $moduleID');
     if(moduleID != null) {
       _header.addAll({AppConstants.MODULE_ID: moduleID.toString()});
     }
